@@ -21,7 +21,7 @@ public class MySpringBootRouter extends FatJarRouter {
     @Override
     public void configure() {
     	
-    	restConfiguration().component("restlet").componentProperty("useForwardedForHeader", "true");
+    	restConfiguration().component("restlet");
     	
 //        from("timer://trigger").
 //                transform().simple("ref:myBean").
@@ -30,14 +30,7 @@ public class MySpringBootRouter extends FatJarRouter {
         
         rest("/test").produces("application/json").get().to("direct:hello");
         
-        from("direct:hello").process(new Processor() {
-
-			public void process(Exchange exchange) throws Exception {
-				Request request = exchange.getIn().getHeader(RestletConstants.RESTLET_REQUEST, Request.class);
-				exchange.getIn().setBody(request.getClientInfo().getForwardedAddresses());
-			}
-        	
-        });
+        from("direct:hello").transform().simple("Hello World!");
         
         
     }
