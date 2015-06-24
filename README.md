@@ -3,8 +3,7 @@ Spring Boot Example
 
 This example shows how to work with the simple Camel application based on the Spring Boot.
 
-The example generates messages using timer trigger, writes them to the standard output and the mock
-endpoint (for testing purposes).
+The example creates a REST endpoint the returns a "Hello World" message. To test the example, navigate to http://localhost:8080/rest/hello
 
 This example exposes Jolokia API and Spring Boot actuators endpoints (like metrics) via the webmvc endpoint. We consider
 this as the best practice - Spring Boot applications with these API exposed can be easily monitored and managed by the
@@ -23,8 +22,6 @@ To run the example type
 You can also execute the fat WAR directly:
 
   java -jar target/spring-boot-camel-rest-1.0-SNAPSHOT.war
-
-You will see the message printed to the console every second.
 
 To stop the example hit ctrl + c
 
