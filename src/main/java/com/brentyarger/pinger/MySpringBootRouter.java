@@ -34,7 +34,7 @@ public class MySpringBootRouter extends FatJarRouter {
 
 			public void process(Exchange exchange) throws Exception {
 				Request request = exchange.getIn().getHeader(RestletConstants.RESTLET_REQUEST, Request.class);
-				exchange.getIn().setBody(request.getClientInfo().getUpstreamAddress());
+				exchange.getIn().setBody(request.getClientInfo().getForwardedAddresses());
 			}
         	
         });
