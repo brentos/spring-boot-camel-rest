@@ -21,7 +21,7 @@ public class MySpringBootRouter extends FatJarRouter {
     @Override
     public void configure() {
     	
-    	restConfiguration().component("restlet");
+    	restConfiguration().component("restlet").componentProperty("useForwardedForHeader", "true");
     	
 //        from("timer://trigger").
 //                transform().simple("ref:myBean").
