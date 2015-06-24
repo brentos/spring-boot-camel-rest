@@ -1,1 +1,1 @@
-mvn package -DskipTests=true
+mvn package -s .openshift/settings.xml -DskipTests=true
