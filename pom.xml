@@ -4,8 +4,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.brentyarger.pinger</groupId>
-	<artifactId>pinger</artifactId>
+	<groupId>com.brentyarger.spring-boot-camel-rest</groupId>
+	<artifactId>spring-boot-camel-rest</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 
