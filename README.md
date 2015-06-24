@@ -22,7 +22,7 @@ To run the example type
 
 You can also execute the fat WAR directly:
 
-  java -jar target/pinger-1.0-SNAPSHOT.war
+  java -jar target/spring-boot-camel-rest-1.0-SNAPSHOT.war
 
 You will see the message printed to the console every second.
 
