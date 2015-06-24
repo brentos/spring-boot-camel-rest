@@ -1,1 +1,1 @@
-spring.main.sources: com.brentyarger.pinger.MySpringBootRouter
+spring.main.sources: com.brentyarger.springbootcamelrest.MySpringBootRouter
