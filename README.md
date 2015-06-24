@@ -25,6 +25,8 @@ You can also execute the fat WAR directly:
 
 To stop the example hit ctrl + c
 
+Additionally, this example contains the necessary .openshift files to deploy to OpenShift online in a DIY cartridge.
+
 For more help see the Apache Camel documentation
 
     http://camel.apache.org/
