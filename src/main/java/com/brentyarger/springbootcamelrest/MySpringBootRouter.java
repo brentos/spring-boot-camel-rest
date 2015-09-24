@@ -1,27 +1,38 @@
 package com.brentyarger.springbootcamelrest;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.camel.component.restlet.RestletComponent;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.spring.boot.FatJarRouter;
-import org.restlet.Component;
-import org.restlet.ext.spring.SpringServerServlet;
+import org.apache.cxf.Bus;
+import org.apache.cxf.jaxrs.AbstractJAXRSFactoryBean;
+import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
+import org.apache.cxf.transport.servlet.CXFServlet;
+import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
+@ImportResource({ "classpath:META-INF/cxf/cxf.xml" })
 public class MySpringBootRouter extends FatJarRouter {
 
+	@Autowired
+	private ApplicationContext applicationContext;
+	
     @Override
     public void configure() {
-    	
-    	restConfiguration().component("restlet");
-    	
-        rest("/hello").get().to("direct:hello");
         
-        from("direct:hello").transform().simple("Hello World!");
+        from("cxfrs:bean:rsServer")
+        .process(new Processor() {
+
+			public void process(Exchange exchange) throws Exception {
+				exchange.getIn().setBody("Hello World");
+			}
+        	
+        });
         
     }
 
@@ -29,28 +40,32 @@ public class MySpringBootRouter extends FatJarRouter {
     @Bean
     public ServletRegistrationBean servletRegistrationBean() {
     	
-    	SpringServerServlet serverServlet = new SpringServerServlet();
-    	ServletRegistrationBean regBean = new ServletRegistrationBean( serverServlet, "/rest/*");
+    	return new ServletRegistrationBean(new CXFServlet(), "/api/*");
     	
     	
-    	Map<String,String> params = new HashMap<String,String>();
-    	
-    	params.put("org.restlet.component", "restletComponent");
-    	
-    	regBean.setInitParameters(params);
-    	
-    	return regBean;
     }
     
     
     @Bean
-    public Component restletComponent() {
-    	return new Component();
+    public AbstractJAXRSFactoryBean rsServer() {
+    	Bus bus = (Bus)applicationContext.getBean(Bus.DEFAULT_BUS_ID);
+    	JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
+    	sf.setResourceClasses(HelloService.class);
+    	sf.setAddress("/");
+    	sf.setBus(bus);
+    	sf.setProvider(new JacksonJaxbJsonProvider());
+    	return sf;
+    	
     }
     
-    @Bean
-    public RestletComponent restletComponentService() {
-    	return new RestletComponent(restletComponent());
-    }
+//    @Bean
+//    public Component restletComponent() {
+//    	return new Component();
+//    }
+    
+//    @Bean
+//    public RestletComponent restletComponentService() {
+//    	return new RestletComponent(restletComponent());
+//    }
 
 }

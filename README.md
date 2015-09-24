@@ -1,9 +1,9 @@
 Spring Boot Example
 ===================
 
-This example shows how to create a project using camel-spring-boot, the REST DSL, and restlet.
+This example shows how to create a project using camel-spring-boot and CXF.
 
-The example creates a REST endpoint that returns a "Hello World" message. To test the example, navigate to http://localhost:8080/rest/hello
+The example creates a REST endpoint that returns a "Hello World" message. To test the example, navigate to http://localhost:8080/api/hello
 
 This example exposes Jolokia API and Spring Boot actuators endpoints (like metrics) via the webmvc endpoint. We consider
 this as the best practice - Spring Boot applications with these API exposed can be easily monitored and managed by the
