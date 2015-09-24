@@ -41,8 +41,7 @@ public class MySpringBootRouter extends FatJarRouter {
     public ServletRegistrationBean servletRegistrationBean() {
     	
     	return new ServletRegistrationBean(new CXFServlet(), "/api/*");
-    	
-    	
+
     }
     
     
@@ -57,15 +56,5 @@ public class MySpringBootRouter extends FatJarRouter {
     	return sf;
     	
     }
-    
-//    @Bean
-//    public Component restletComponent() {
-//    	return new Component();
-//    }
-    
-//    @Bean
-//    public RestletComponent restletComponentService() {
-//    	return new RestletComponent(restletComponent());
-//    }
 
 }
